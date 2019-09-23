@@ -4,11 +4,11 @@
   
     
     <entry>
-      <title>个人博客开发-前台</title>
-      <link href="/2019/09/22/%E5%8D%9A%E5%AE%A2%E5%89%8D%E5%8F%B0/"/>
-      <url>/2019/09/22/%E5%8D%9A%E5%AE%A2%E5%89%8D%E5%8F%B0/</url>
+      <title>个人博客开发-后台</title>
+      <link href="/2019/09/22/blogBackStage/"/>
+      <url>/2019/09/22/blogBackStage/</url>
       
-        <content type="html"><![CDATA[<h2 id="一、我的第一个博客"><a href="#一、我的第一个博客" class="headerlink" title="一、我的第一个博客"></a>一、我的第一个博客</h2><h3 id="预览图"><a href="#预览图" class="headerlink" title="预览图"></a>预览图</h3><p><img src="/images/frontDesk/20190923155611.jpg" alt="后台主页"><br><img src="/images/frontDesk/20190923153204.jpg" alt="文章页"><br><img src="/images/frontDesk/20190923154553.jpg" alt="文章详情页"><br><img src="/images/frontDesk/20190923153249.jpg" alt="相册页"><br><img src="/images/frontDesk/20190923154703.jpg" alt="相册详情页"><br><img src="/images/frontDesk/20190923153344.jpg" alt="留言页"><br><img src="/images/frontDesk/20190923153506.jpg" alt="关于我"></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="一、我的第一个博客"><a href="#一、我的第一个博客" class="headerlink" title="一、我的第一个博客"></a>一、我的第一个博客</h2><h3 id="预览图"><a href="#预览图" class="headerlink" title="预览图"></a>预览图</h3><p><img src="/images/backStage/20190923223733.jpg" alt="后台主页"><br><img src="/images/backStage/20190923223807.jpg" alt="写博客"><br><img src="/images/backStage/20190923223826.jpg" alt="博客信息管理"><br><img src="/images/backStage/20190923223845.jpg" alt="博客类别管理"><br><img src="/images/backStage/20190923224255.jpg" alt="评论审核"><br><img src="/images/backStage/20190923224308.jpg" alt="上传图片"><br><img src="/images/backStage/20190923224326.jpg" alt="图片信息管理"><br><img src="/images/backStage/20190923224346.jpg" alt="相册信息管理"></p>]]></content>
       
       
       <categories>
@@ -29,11 +29,11 @@
     
     
     <entry>
-      <title>个人博客开发-后台</title>
-      <link href="/2019/09/22/%E5%8D%9A%E5%AE%A2%E5%90%8E%E5%8F%B0/"/>
-      <url>/2019/09/22/%E5%8D%9A%E5%AE%A2%E5%90%8E%E5%8F%B0/</url>
+      <title>个人博客开发-前台</title>
+      <link href="/2019/09/22/blogFrontDesk/"/>
+      <url>/2019/09/22/blogFrontDesk/</url>
       
-        <content type="html"><![CDATA[<h2 id="一、我的第一个博客"><a href="#一、我的第一个博客" class="headerlink" title="一、我的第一个博客"></a>一、我的第一个博客</h2><h3 id="预览图"><a href="#预览图" class="headerlink" title="预览图"></a>预览图</h3><p><img src="/images/backStage/20190923155611.jpg" alt="后台主页"><br><img src="/images/backStage/20190923155803.jpg" alt="写博客"><br><img src="/images/backStage/20190923155910.jpg" alt="博客信息管理"><br><img src="/images/backStage/20190923155955.jpg" alt="博客类别管理"><br><img src="/images/backStage/20190923154703.jpg" alt="相册详情页"><br><img src="/images/backStage/20190923153344.jpg" alt="评论审核"><br><img src="/images/backStage/20190923153506.jpg" alt="上传图片"><br><img src="/images/backStage/20190923153506.jpg" alt="图片信息管理"><br><img src="/images/backStage/20190923153506.jpg" alt="相册信息管理"></p>]]></content>
+        <content type="html"><![CDATA[<h2 id="一、我的第一个博客"><a href="#一、我的第一个博客" class="headerlink" title="一、我的第一个博客"></a>一、我的第一个博客</h2><h3 id="预览图"><a href="#预览图" class="headerlink" title="预览图"></a>预览图</h3><p><img src="/images/frontDesk/20190923223254.jpg" alt="主页"><br><img src="/images/frontDesk/20190923223401.jpg" alt="文章页"><br><img src="/images/frontDesk/20190923223500.jpg" alt="文章详情页"><br><img src="/images/frontDesk/20190923223520.jpg" alt="相册页"><br><img src="/images/frontDesk/20190923223552.jpg" alt="相册详情页"><br><img src="/images/frontDesk/20190923223615.jpg" alt="留言页"><br><img src="/images/frontDesk/20190923223633.jpg" alt="关于我"></p>]]></content>
       
       
       <categories>
