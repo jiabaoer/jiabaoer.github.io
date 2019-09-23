@@ -4,23 +4,48 @@
   
     
     <entry>
-      <title>黄文贵</title>
-      <link href="/2019/09/22/index/"/>
-      <url>/2019/09/22/index/</url>
+      <title>个人博客开发-前台</title>
+      <link href="/2019/09/22/%E5%8D%9A%E5%AE%A2%E5%89%8D%E5%8F%B0/"/>
+      <url>/2019/09/22/%E5%8D%9A%E5%AE%A2%E5%89%8D%E5%8F%B0/</url>
       
-        <content type="html"><![CDATA[<h2 id="一、我的第一个文章"><a href="#一、我的第一个文章" class="headerlink" title="一、我的第一个文章"></a>一、我的第一个文章</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code>&lt;!DOCTYPE html&gt;&lt;html&gt;    &lt;head&gt;        &lt;meta charset=&quot;utf-8&quot;&gt;        &lt;title&gt;在线示例 - layui&lt;/title&gt;        &lt;meta name=&quot;renderer&quot; content=&quot;webkit&quot;&gt;        &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge,chrome=1&quot;&gt;        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1&quot;&gt;        &lt;meta name=&quot;apple-mobile-web-app-status-bar-style&quot; content=&quot;black&quot;&gt;        &lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot;&gt;        &lt;meta name=&quot;format-detection&quot; content=&quot;telephone=no&quot;&gt;        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;layui/css/layui.css&quot; /&gt;        &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css/global.css&quot; /&gt;        &lt;script src=&quot;js/jquery-2.1.0.min.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;        &lt;script src=&quot;layui/layui.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;        &lt;style&gt;            .site-demo .layui-row {                margin-bottom: 10px;            }        &lt;/style&gt;    &lt;/head&gt;    &lt;body&gt;        &lt;div class=&quot;layui-layout layui-layout-admin&quot;&gt;            &lt;div class=&quot;layui-header header header-demo&quot; autumn&gt;                &lt;div class=&quot;layui-main&quot;&gt;                    &lt;a class=&quot;logo&quot; href=&quot;/&quot;&gt;                        &lt;img src=&quot;//res.layui.com/static/images/layui/logo.png&quot; alt=&quot;layui&quot;&gt;                    &lt;/a&gt;                    &lt;ul class=&quot;layui-nav&quot;&gt;                        &lt;li class=&quot;layui-nav-item &quot;&gt;                            &lt;a href=&quot;/doc/&quot;&gt;文档                        &lt;/li&gt;                    &lt;/ul&gt;                &lt;/div&gt;            &lt;/div&gt;            &lt;div class=&quot;layui-side layui-bg-black&quot;&gt;                &lt;div class=&quot;layui-side-scroll&quot;&gt;                    &lt;ul class=&quot;layui-nav layui-nav-tree site-demo-nav&quot;&gt;                        &lt;li class=&quot;layui-nav-item layui-nav-itemed&quot;&gt;                            asd                        &lt;/li&gt;                    &lt;/ul&gt;                &lt;/div&gt;            &lt;/div&gt;            &lt;div class=&quot;layui-tab layui-tab-brief&quot; lay-filter=&quot;demoTitle&quot;&gt;                &lt;div class=&quot;layui-body layui-tab-content site-demo site-demo-body&quot;&gt;                    &lt;div class=&quot;layui-tab-item layui-show&quot;&gt;                        &lt;div class=&quot;layui-main&quot;&gt;                            &lt;div class=&quot;layui-container&quot;&gt;                                内容                            &lt;/div&gt;                        &lt;/div&gt;                    &lt;/div&gt;                &lt;/div&gt;            &lt;/div&gt;        &lt;/div&gt;        &lt;div class=&quot;layui-footer footer footer-demo&quot;&gt;            &lt;div class=&quot;layui-main&quot;&gt;                &lt;p&gt;&amp;copy; 2019 &lt;a href=&quot;/&quot;&gt;layui.com&lt;/a&gt; MIT license&lt;/p&gt;                &lt;p&gt;                    阿三大苏打&quot;赣ICP备13006272号-2                &lt;/p&gt;                &lt;div class=&quot;site-union&quot;&gt;                    &lt;p class=&quot;site-union-desc&quot;&gt;                        &lt;span&gt;                            云加速支持：                        &lt;/span&gt;                    &lt;/p&gt;                    &lt;p&gt;阿三打撒                    &lt;/p&gt;                &lt;/div&gt;            &lt;/div&gt;        &lt;/div&gt;        &lt;div class=&quot;site-tree-mobile&quot;&gt;            &lt;i class=&quot;layui-icon&quot;&gt;123&lt;/i&gt;        &lt;/div&gt;        &lt;div class=&quot;site-tree-mobile1&quot;&gt;            &lt;i class=&quot;layui-icon&quot;&gt;asfsa&lt;/i&gt;        &lt;/div&gt;        &lt;script&gt;            //手机设备的简单适配            var treeMobile = $(&#39;.site-tree-mobile&#39;),                shadeMobile = $(&#39;.site-tree-mobile1&#39;)            treeMobile.on(&#39;click&#39;, function() {                $(&#39;body&#39;).addClass(&#39;site-mobile&#39;);            });            shadeMobile.on(&#39;click&#39;, function() {                $(&#39;body&#39;).removeClass(&#39;site-mobile&#39;);            });        &lt;/script&gt;    &lt;/body&gt;&lt;/html&gt;</code></pre>]]></content>
+        <content type="html"><![CDATA[<h2 id="一、我的第一个博客"><a href="#一、我的第一个博客" class="headerlink" title="一、我的第一个博客"></a>一、我的第一个博客</h2><h3 id="预览图"><a href="#预览图" class="headerlink" title="预览图"></a>预览图</h3><p><img src="/images/frontDesk/20190923155611.jpg" alt="后台主页"><br><img src="/images/frontDesk/20190923153204.jpg" alt="文章页"><br><img src="/images/frontDesk/20190923154553.jpg" alt="文章详情页"><br><img src="/images/frontDesk/20190923153249.jpg" alt="相册页"><br><img src="/images/frontDesk/20190923154703.jpg" alt="相册详情页"><br><img src="/images/frontDesk/20190923153344.jpg" alt="留言页"><br><img src="/images/frontDesk/20190923153506.jpg" alt="关于我"></p>]]></content>
       
       
       <categories>
           
-          <category> java </category>
+          <category> 个人博客 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> java </tag>
+            <tag> 个人博客 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>个人博客开发-后台</title>
+      <link href="/2019/09/22/%E5%8D%9A%E5%AE%A2%E5%90%8E%E5%8F%B0/"/>
+      <url>/2019/09/22/%E5%8D%9A%E5%AE%A2%E5%90%8E%E5%8F%B0/</url>
+      
+        <content type="html"><![CDATA[<h2 id="一、我的第一个博客"><a href="#一、我的第一个博客" class="headerlink" title="一、我的第一个博客"></a>一、我的第一个博客</h2><h3 id="预览图"><a href="#预览图" class="headerlink" title="预览图"></a>预览图</h3><p><img src="/images/backStage/20190923155611.jpg" alt="后台主页"><br><img src="/images/backStage/20190923155803.jpg" alt="写博客"><br><img src="/images/backStage/20190923155910.jpg" alt="博客信息管理"><br><img src="/images/backStage/20190923155955.jpg" alt="博客类别管理"><br><img src="/images/backStage/20190923154703.jpg" alt="相册详情页"><br><img src="/images/backStage/20190923153344.jpg" alt="评论审核"><br><img src="/images/backStage/20190923153506.jpg" alt="上传图片"><br><img src="/images/backStage/20190923153506.jpg" alt="图片信息管理"><br><img src="/images/backStage/20190923153506.jpg" alt="相册信息管理"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 个人博客 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 个人博客 </tag>
             
         </tags>
       
