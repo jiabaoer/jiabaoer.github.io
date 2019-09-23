@@ -163,7 +163,7 @@ mark {
 }
 
 .bg-color {
-    background-image: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%);
+    background-image: linear-gradient(to right, #3044bf 0%, #c500fc  100%);
 }
 
 .text-color {
@@ -232,8 +232,6 @@ header .side-nav .mobile-head {
 
 header .side-nav .mobile-head img {
     margin-top: 30px;
-    width: 75px;
-    height: 75px;
 }
 
 header .side-nav .mobile-head .logo-name {
