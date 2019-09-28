@@ -339,7 +339,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        773
+                        777
                     </div>
                     
 
@@ -385,12 +385,15 @@ log4j-1.2.17.jar
 slf4j-log4j12-1.7.5.jar
 ```</code></pre></blockquote>
 <h3 id="3-3-log4j-properties-日志配置文件"><a href="#3-3-log4j-properties-日志配置文件" class="headerlink" title="3.3 log4j.properties 日志配置文件"></a>3.3 log4j.properties 日志配置文件</h3><blockquote>
-<p>log4j.rootLogger=debug, stdout<br>log4j.appender.stdout=org.apache.log4j.ConsoleAppender<br>log4j.appender.stdout.layout=org.apache.log4j.PatternLayout<br>log4j.appender.stdout.layout.ConversionPattern=%d %p [%c] - %m %n</p>
-</blockquote>
+<pre><code>log4j.rootLogger=debug, stdout 
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender 
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout 
+log4j.appender.stdout.layout.ConversionPattern=%d %p [%c] - %m %n</code></pre></blockquote>
 <h3 id="3-4-配置-shiro-环境文件-shiro-ini"><a href="#3-4-配置-shiro-环境文件-shiro-ini" class="headerlink" title="3.4 配置 shiro 环境文件 shiro.ini"></a>3.4 配置 shiro 环境文件 shiro.ini</h3><p>通过 Shiro.ini 配置文件初始化 SecurityManager 环境。 </p>
 <blockquote>
-<p>[users]<br>zhangsan=1111<br>lisi=1111</p>
-</blockquote>
+<pre><code>[users] 
+zhangsan=1111 
+lisi=1111</code></pre></blockquote>
 <h3 id="3-5-代码实现"><a href="#3-5-代码实现" class="headerlink" title="3.5 代码实现"></a>3.5 代码实现</h3><blockquote>
 <pre><code>//用户登录和退出 
 @Test public void testAuthenticator(){ 
