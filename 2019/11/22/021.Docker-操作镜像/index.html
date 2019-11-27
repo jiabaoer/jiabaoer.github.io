@@ -1,0 +1,907 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Docker 操作镜像, jiabaor-黄文贵个人博客">
+    <meta name="description" content="Docker 操作镜像获取镜像之前提到过，Docker Hub 上有大量的高质量的镜像可以用，这里我们就说一下怎么获取这些镜像。
+从 Docker 镜像仓库获取镜像的命令是 docker pull。其命令格式为：
+docker pull [">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Docker 操作镜像 | jiabaor-黄文贵个人博客</title>
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/medias/icon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-desc">
+            
+				个人博客记录自己学习的点点滴滴
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/huangwengui" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>github首页
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/huangwengui" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub：https://github.com/huangwengui" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:445282611@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我：445282611@qq.com" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=445282611" class="tooltipped" data-tooltip="QQ联系我: 445282611" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+    <a href="https://www.jiabaor.top" class="tooltipped" data-tooltip="个人博客: https://www.jiabaor.top" data-position="top" data-delay="50">
+        <i class="fa fa-twitter"></i>
+    </a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/huangwengui" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="github首页" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/docker/engine-components-flow.png')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Docker 操作镜像
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="container content">
+
+    
+    <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Docker/" target="_blank">
+                                <span class="chip bg-color">Docker</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Docker/" class="post-category" target="_blank">
+                                Docker
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-11-22
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        2.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        11 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Docker-操作镜像"><a href="#Docker-操作镜像" class="headerlink" title="Docker 操作镜像"></a>Docker 操作镜像</h1><h2 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h2><p>之前提到过，<a href="https://hub.docker.com/explore/" target="_blank" rel="noopener">Docker Hub</a> 上有大量的高质量的镜像可以用，这里我们就说一下怎么获取这些镜像。</p>
+<p>从 Docker 镜像仓库获取镜像的命令是 <code>docker pull</code>。其命令格式为：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker pull <span class="token punctuation">[</span>选项<span class="token punctuation">]</span> <span class="token punctuation">[</span>Docker Registry 地址<span class="token punctuation">[</span>:端口号<span class="token punctuation">]</span>/<span class="token punctuation">]</span>仓库名<span class="token punctuation">[</span>:标签<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>具体的选项可以通过 <code>docker pull --help</code> 命令看到，这里我们说一下镜像名称的格式。</p>
+<ul>
+<li><strong>镜像仓库地址：</strong> 地址的格式一般是 <code>&lt;域名/IP&gt;[:端口号]</code>。默认地址是 Docker Hub。</li>
+<li><strong>仓库名：</strong> 如之前所说，这里的仓库名是两段式名称，即 <code>&lt;用户名&gt;/&lt;软件名&gt;</code>。对于 Docker Hub，如果不给出用户名，则默认为 <code>library</code>，也就是官方镜像。</li>
+</ul>
+<pre class="line-numbers language-bash"><code class="language-bash">docker pull nginx
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+Using default tag: latest
+latest: Pulling from library/nginx
+fc7181108d40: Pull complete 
+c4277fc40ec2: Pull complete 
+780053e98559: Pull complete 
+Digest: sha256:bdbf36b7f1f77ffe7bd2a32e59235dff6ecf131e3b6b5b96061c652f30685f3a
+Status: Downloaded newer image <span class="token keyword">for</span> nginx:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="列出镜像"><a href="#列出镜像" class="headerlink" title="列出镜像"></a>列出镜像</h2><p>要想列出已经下载下来的镜像，可以使用 <code>docker image ls</code> 命令。</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">ls</span>
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
+redis                latest              5f515359c7f8        5 days ago          183 MB
+nginx                latest              05a60462f8ba        5 days ago          181 MB
+mongo                3.2                 fe9198c04d62        5 days ago          342 MB
+<span class="token operator">&lt;</span>none<span class="token operator">></span>               <span class="token operator">&lt;</span>none<span class="token operator">></span>              00285df0df87        5 days ago          342 MB
+ubuntu               16.04               f753707788c5        4 weeks ago         127 MB
+ubuntu               latest              f753707788c5        4 weeks ago         127 MB
+ubuntu               14.04               1e0c3dd64ccd        4 weeks ago         188 MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>列表包含了 <code>仓库名</code>、<code>标签</code>、<code>镜像 ID</code>、<code>创建时间</code> 以及 <code>所占用的空间</code>。</p>
+<p>其中仓库名、标签在之前的基础概念章节已经介绍过了。<strong>镜像 ID</strong> 则是镜像的唯一标识，一个镜像可以对应多个<strong>标签</strong>。因此，在上面的例子中，我们可以看到 <code>ubuntu:16.04</code> 和 <code>ubuntu:latest</code> 拥有相同的 ID，因为它们对应的是同一个镜像。</p>
+<h2 id="镜像体积"><a href="#镜像体积" class="headerlink" title="镜像体积"></a>镜像体积</h2><p>如果仔细观察，会注意到，这里标识的所占用空间和在 Docker Hub 上看到的镜像大小不同。比如，<code>ubuntu:16.04</code> 镜像大小，在这里是 <code>127 MB</code>，但是在 Docker Hub 显示的却是 <code>50 MB</code>。这是因为 Docker Hub 中显示的体积是压缩后的体积。在镜像下载和上传过程中镜像是保持着压缩状态的，因此 Docker Hub 所显示的大小是网络传输中更关心的流量大小。而 <code>docker image ls</code> 显示的是镜像下载到本地后，展开的大小，准确说，是展开后的各层所占空间的总和，因为镜像到本地后，查看空间的时候，更关心的是本地磁盘空间占用的大小。</p>
+<p>另外一个需要注意的问题是，<code>docker image ls</code> 列表中的镜像体积总和并非是所有镜像实际硬盘消耗。由于 Docker 镜像是多层存储结构，并且可以继承、复用，因此不同镜像可能会因为使用相同的基础镜像，从而拥有共同的层。由于 Docker 使用 Union FS，相同的层只需要保存一份即可，因此实际镜像硬盘占用空间很可能要比这个列表镜像大小的总和要小的多。</p>
+<p>你可以通过以下命令来便捷的查看镜像、容器、数据卷所占用的空间。</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker system <span class="token function">df</span>
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+TYPE                TOTAL               ACTIVE              SIZE                RECLAIMABLE
+Images              24                  0                   1.992GB             1.992GB <span class="token punctuation">(</span>100%<span class="token punctuation">)</span>
+Containers          1                   0                   62.82MB             62.82MB <span class="token punctuation">(</span>100%<span class="token punctuation">)</span>
+Local Volumes       9                   0                   652.2MB             652.2MB <span class="token punctuation">(</span>100%<span class="token punctuation">)</span>
+Build Cache                                                 0B                  0B<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="虚悬镜像"><a href="#虚悬镜像" class="headerlink" title="虚悬镜像"></a>虚悬镜像</h2><p>上面的镜像列表中，还可以看到一个特殊的镜像，这个镜像既没有仓库名，也没有标签，均为 <code>&lt;none&gt;</code></p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token operator">&lt;</span>none<span class="token operator">></span>               <span class="token operator">&lt;</span>none<span class="token operator">></span>              00285df0df87        5 days ago          342 MB<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这个镜像原本是有镜像名和标签的，原来为 <code>mongo:3.2</code>，随着官方镜像维护，发布了新版本后，重新 <code>docker pull mongo:3.2</code> 时，<code>mongo:3.2</code> 这个镜像名被转移到了新下载的镜像身上，而旧的镜像上的这个名称则被取消，从而成为了 <code>&lt;none&gt;</code>。除了 <code>docker pull</code> 可能导致这种情况，<code>docker build</code> 也同样可以导致这种现象。由于新旧镜像同名，旧镜像名称被取消，从而出现仓库名、标签均为 <code>&lt;none&gt;</code> 的镜像。这类无标签镜像也被称为 <strong>虚悬镜像(dangling image)</strong> ，可以用下面的命令专门显示这类镜像：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">ls</span> -f dangling<span class="token operator">=</span>true
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+<span class="token operator">&lt;</span>none<span class="token operator">></span>              <span class="token operator">&lt;</span>none<span class="token operator">></span>              00285df0df87        5 days ago          342 MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>一般来说，虚悬镜像已经失去了存在的价值，是可以随意删除的，可以用下面的命令删除。</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image prune<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="中间层镜像"><a href="#中间层镜像" class="headerlink" title="中间层镜像"></a>中间层镜像</h2><p>为了加速镜像构建、重复利用资源，Docker 会利用 <strong>中间层镜像</strong>。所以在使用一段时间后，可能会看到一些依赖的中间层镜像。默认的 <code>docker image ls</code> 列表中只会显示顶层镜像，如果希望显示包括中间层镜像在内的所有镜像的话，需要加 <code>-a</code> 参数。</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">ls</span> -a<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这样会看到很多无标签的镜像，与之前的虚悬镜像不同，这些无标签的镜像很多都是中间层镜像，是其它镜像所依赖的镜像。这些无标签镜像不应该删除，否则会导致上层镜像因为依赖丢失而出错。实际上，这些镜像也没必要删除，因为之前说过，相同的层只会存一遍，而这些镜像是别的镜像的依赖，因此并不会因为它们被列出来而多存了一份，无论如何你也会需要它们。只要删除那些依赖它们的镜像后，这些依赖的中间层镜像也会被连带删除。</p>
+<h2 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h2><p>如果要删除本地的镜像，可以使用 <code>docker image rm</code> 命令，其格式为：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">rm</span> <span class="token punctuation">[</span>选项<span class="token punctuation">]</span> <span class="token operator">&lt;</span>镜像1<span class="token operator">></span> <span class="token punctuation">[</span><span class="token operator">&lt;</span>镜像2<span class="token operator">></span> <span class="token punctuation">..</span>.<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="用-ID、镜像名、摘要删除镜像"><a href="#用-ID、镜像名、摘要删除镜像" class="headerlink" title="用 ID、镜像名、摘要删除镜像"></a>用 ID、镜像名、摘要删除镜像</h3><p>其中，<code>&lt;镜像&gt;</code> 可以是 <code>镜像短 ID</code>、<code>镜像长 ID</code>、<code>镜像名</code> 或者 <code>镜像摘要</code>。</p>
+<p>比如我们有这么一些镜像：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">ls</span>
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+REPOSITORY                  TAG                 IMAGE ID            CREATED             SIZE
+centos                      latest              0584b3d2cf6d        3 weeks ago         196.5 MB
+redis                       alpine              501ad78535f0        3 weeks ago         21.03 MB
+docker                      latest              cf693ec9b5c7        3 weeks ago         105.1 MB
+nginx                       latest              e43d811ce2f4        5 weeks ago         181.5 MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们可以用镜像的完整 ID，也称为 <strong>长 ID</strong>，来删除镜像。使用脚本的时候可能会用长 ID，但是人工输入就太累了，所以更多的时候是用 <strong>短 ID</strong> 来删除镜像。<code>docker image ls</code> 默认列出的就已经是短 ID 了，一般取前 3 个字符以上，只要足够区分于别的镜像就可以了。</p>
+<p>比如这里，如果我们要删除 <code>redis:alpine</code> 镜像，可以执行：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">rm</span> 501
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+Untagged: redis:alpine
+Untagged: redis@sha256:f1ed3708f538b537eb9c2a7dd50dc90a706f7debd7e1196c9264edeea521a86d
+Deleted: sha256:501ad78535f015d88872e13fa87a828425117e3d28075d0c117932b05bf189b7
+Deleted: sha256:96167737e29ca8e9d74982ef2a0dda76ed7b430da55e321c071f0dbff8c2899b
+Deleted: sha256:32770d1dcf835f192cafd6b9263b7b597a1778a403a109e2cc2ee866f74adf23
+Deleted: sha256:127227698ad74a5846ff5153475e03439d96d4b1c7f2a449c7a826ef74a2d2fa
+Deleted: sha256:1333ecc582459bac54e1437335c0816bc17634e131ea0cc48daa27d32c75eab3
+Deleted: sha256:4fc455b921edf9c4aea207c51ab39b10b06540c8b4825ba57b3feed1668fa7c7<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们也可以用<code>镜像名</code>，也就是 <code>&lt;仓库名&gt;:&lt;标签&gt;</code>，来删除镜像。</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">rm</span> centos
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+Untagged: centos:latest
+Untagged: centos@sha256:b2f9d1c0ff5f87a4743104d099a3d561002ac500db1b9bfa02a783a46e0d366c
+Deleted: sha256:0584b3d2cf6d235ee310cf14b54667d889887b838d3f3d3033acd70fc3c48b8a
+Deleted: sha256:97ca462ad9eeae25941546209454496e1d66749d53dfa2ee32bf1faabd239d38<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>当然，更精确的是使用 <code>镜像摘要</code> 删除镜像。</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">ls</span> --digests
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+REPOSITORY                  TAG                 DIGEST                                                                    IMAGE ID            CREATED             SIZE
+node                        slim                sha256:b4f0e0bdeb578043c1ea6862f0d40cc4afe32a4a582f3be235a3b164422be228   6e0c4c8e3913        3 weeks ago         214 MB
+
+docker image <span class="token function">rm</span> node@sha256:b4f0e0bdeb578043c1ea6862f0d40cc4afe32a4a582f3be235a3b164422be228
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+Untagged: node@sha256:b4f0e0bdeb578043c1ea6862f0d40cc4afe32a4a582f3be235a3b164422be228<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="用-docker-image-ls-命令来配合"><a href="#用-docker-image-ls-命令来配合" class="headerlink" title="用 docker image ls 命令来配合"></a>用 docker image ls 命令来配合</h3><p>像其它可以承接多个实体的命令一样，可以使用 <code>docker image ls -q</code> 来配合使用 <code>docker image rm</code>，这样可以成批的删除希望删除的镜像。我们在“镜像列表”章节介绍过很多过滤镜像列表的方式都可以拿过来使用。</p>
+<p>比如，我们需要删除所有仓库名为 <code>redis</code> 的镜像：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">rm</span> <span class="token variable"><span class="token variable">$(</span>docker image <span class="token function">ls</span> -q redis<span class="token variable">)</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>或者删除所有在 <code>mongo:3.2</code> 之前的镜像：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">rm</span> <span class="token variable"><span class="token variable">$(</span>docker image <span class="token function">ls</span> -q -f before<span class="token operator">=</span>mongo:3.2<span class="token variable">)</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>充分利用你的想象力和 Linux 命令行的强大，你可以完成很多非常赞的功能。</p>
+<h2 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h2><h3 id="列出部分镜像"><a href="#列出部分镜像" class="headerlink" title="列出部分镜像"></a>列出部分镜像</h3><p>不加任何参数的情况下，<code>docker image ls</code> 会列出所有顶级镜像，但是有时候我们只希望列出部分镜像。<code>docker image ls</code> 有好几个参数可以帮助做到这个事情。</p>
+<p>根据仓库名列出镜像</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">ls</span> ubuntu
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              16.04               f753707788c5        4 weeks ago         127 MB
+ubuntu              latest              f753707788c5        4 weeks ago         127 MB
+ubuntu              14.04               1e0c3dd64ccd        4 weeks ago         188 MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>列出特定的某个镜像，也就是说指定仓库名和标签</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">ls</span> ubuntu:16.04
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              16.04               f753707788c5        4 weeks ago         127 MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>除此以外，<code>docker image ls</code> 还支持强大的过滤器参数 <code>--filter</code>，或者简写 <code>-f</code>。之前我们已经看到了使用过滤器来列出虚悬镜像的用法，它还有更多的用法。比如，我们希望看到在 <code>mongo:3.2</code> 之后建立的镜像，可以用下面的命令：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">ls</span> -f since<span class="token operator">=</span>mongo:3.2
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+redis               latest              5f515359c7f8        5 days ago          183 MB
+nginx               latest              05a60462f8ba        5 days ago          181 MB<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>想查看某个位置之前的镜像也可以，只需要把 <code>since</code> 换成 <code>before</code> 即可。</p>
+<p>此外，如果镜像构建时，定义了 <code>LABEL</code>，还可以通过 <code>LABEL</code> 来过滤。</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">ls</span> -f label<span class="token operator">=</span>com.example.version<span class="token operator">=</span>0.1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="以特定格式显示"><a href="#以特定格式显示" class="headerlink" title="以特定格式显示"></a>以特定格式显示</h3><p>默认情况下，<code>docker image ls</code> 会输出一个完整的表格，但是我们并非所有时候都会需要这些内容。比如，刚才删除虚悬镜像的时候，我们需要利用 <code>docker image ls</code> 把所有的虚悬镜像的 ID 列出来，然后才可以交给 <code>docker image rm</code> 命令作为参数来删除指定的这些镜像，这个时候就用到了 <code>-q</code> 参数。</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">ls</span> -q
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+5f515359c7f8
+05a60462f8ba
+fe9198c04d62
+00285df0df87
+f753707788c5
+f753707788c5
+1e0c3dd64ccd<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>--filter</code> 配合 <code>-q</code> 产生出指定范围的 ID 列表，然后送给另一个 <code>docker</code> 命令作为参数，从而针对这组实体成批的进行某种操作的做法在 Docker 命令行使用过程中非常常见，不仅仅是镜像，将来我们会在各个命令中看到这类搭配以完成很强大的功能。因此每次在文档看到过滤器后，可以多注意一下它们的用法。</p>
+<p>另外一些时候，我们可能只是对表格的结构不满意，希望自己组织列；或者不希望有标题，这样方便其它程序解析结果等，这就用到了 <a href="https://gohugo.io/templates/go-templates/" target="_blank" rel="noopener">Go 的模板语法</a>。</p>
+<p>比如，下面的命令会直接列出镜像结果，并且只包含镜像 ID 和仓库名：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">ls</span> --format <span class="token string">"{{.ID}}: {{.Repository}}"</span>
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+5f515359c7f8: redis
+05a60462f8ba: nginx
+fe9198c04d62: mongo
+00285df0df87: <span class="token operator">&lt;</span>none<span class="token operator">></span>
+f753707788c5: ubuntu
+f753707788c5: ubuntu
+1e0c3dd64ccd: ubuntu<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>或者打算以表格等距显示，并且有标题行，和默认一样，不过自己定义列：</p>
+<pre class="line-numbers language-bash"><code class="language-bash">docker image <span class="token function">ls</span> --format <span class="token string">"table {{.ID}}\t{{.Repository}}\t{{.Tag}}"</span>
+
+<span class="token comment" spellcheck="true"># 输出如下</span>
+IMAGE ID            REPOSITORY          TAG
+5f515359c7f8        redis               latest
+05a60462f8ba        nginx               latest
+fe9198c04d62        mongo               3.2
+00285df0df87        <span class="token operator">&lt;</span>none<span class="token operator">></span>              <span class="token operator">&lt;</span>none<span class="token operator">></span>
+f753707788c5        ubuntu              16.04
+f753707788c5        ubuntu              latest
+1e0c3dd64ccd        ubuntu              14.04<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏一赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://jiabaoer.github.io" class="b-link-green">jiabaor-黄文贵个人博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/11/22/021.Docker-操作镜像/" class="b-link-green">Docker 操作镜像</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: null,
+        id: '2019-11-22T13-11-23',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+
+    
+        
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/11/22/022.Docker-操作容器/">
+                    <div class="card-image">
+                        
+                        <img src="/docker/engine-components-flow.png" class="responsive-img" alt="Docker 操作容器">
+                        
+                        <span class="card-title">Docker 操作容器</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Docker 操作容器启动容器所需要的命令主要为 docker run。例如，下面的命令输出一个 “Hello World”，之后终止容器。
+docker run ubuntu:16.04 /bin/echo 'Hello world'
+H</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-22
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Docker/" class="post-category" target="_blank">
+                                    Docker
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Docker/" target="_blank">
+                        <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/11/22/020.Docker-概述/">
+                    <div class="card-image">
+                        
+                        <img src="/docker/engine-components-flow.png" class="responsive-img" alt="Docker 概述">
+                        
+                        <span class="card-title">Docker 概述</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Docker 概述Docker 引擎Docker 引擎是一个包含以下主要组件的客户端服务器应用程序。
+
+一种服务器，它是一种称为守护进程并且长时间运行的程序。
+REST API 用于指定程序可以用来与守护进程通信的接口，并指示它做什么。
+一</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Docker/" class="post-category" target="_blank">
+                                    Docker
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Docker/" target="_blank">
+                        <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+           欢迎访问：<a href="https://www.jiabaor.top" style="color:#21baff;">黄文贵个人博客===》www.jiabaor.top</a>
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/huangwengui" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub：https://github.com/huangwengui" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:445282611@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我：445282611@qq.com" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=445282611" class="tooltipped" data-tooltip="QQ联系我: 445282611" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+    <a href="https://www.jiabaor.top" class="tooltipped" data-tooltip="个人博客: https://www.jiabaor.top" data-position="top" data-delay="50">
+        <i class="fa fa-twitter"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input" autofocus="">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

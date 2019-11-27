@@ -1,0 +1,840 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Linux 用户和组管理, jiabaor-黄文贵个人博客">
+    <meta name="description" content="Linux 用户和组管理概述Linux 操作系统是一个多用户操作系统，它允许多用户同时登录到系统上并使用资源。系统会根据账户来区分每个用户的文件，进程，任务和工作环境，使得每个用户工作都不受干扰。
+使用 Root 用户在实际生产操作中，我们">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Linux 用户和组管理 | jiabaor-黄文贵个人博客</title>
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/medias/icon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-desc">
+            
+				个人博客记录自己学习的点点滴滴
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/huangwengui" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>github首页
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/huangwengui" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub：https://github.com/huangwengui" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:445282611@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我：445282611@qq.com" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=445282611" class="tooltipped" data-tooltip="QQ联系我: 445282611" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+    <a href="https://www.jiabaor.top" class="tooltipped" data-tooltip="个人博客: https://www.jiabaor.top" data-position="top" data-delay="50">
+        <i class="fa fa-twitter"></i>
+    </a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/huangwengui" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="github首页" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/linux/微信截图_20171102134832.png')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Linux 用户和组管理
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="container content">
+
+    
+    <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Linux/" target="_blank">
+                                <span class="chip bg-color">Linux</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Linux/" class="post-category" target="_blank">
+                                Linux
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-11-21
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        1.6k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        6 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Linux-用户和组管理"><a href="#Linux-用户和组管理" class="headerlink" title="Linux 用户和组管理"></a>Linux 用户和组管理</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Linux 操作系统是一个多用户操作系统，它允许多用户同时登录到系统上并使用资源。系统会根据账户来区分每个用户的文件，进程，任务和工作环境，使得每个用户工作都不受干扰。</p>
+<h2 id="使用-Root-用户"><a href="#使用-Root-用户" class="headerlink" title="使用 Root 用户"></a>使用 Root 用户</h2><p>在实际生产操作中，我们基本上都是使用超级管理员账户操作 Linux 系统，也就是 Root 用户，Linux 系统默认是关闭 Root 账户的，我们需要为 Root 用户设置一个初始密码以方便我们使用。</p>
+<ul>
+<li>设置 Root 账户密码</li>
+</ul>
+<pre><code>sudo passwd root</code></pre><ul>
+<li>切换到 Root</li>
+</ul>
+<pre><code>su</code></pre><ul>
+<li>设置允许远程登录 Root</li>
+</ul>
+<pre><code>vi /etc/ssh/sshd_config
+
+# Authentication:
+LoginGraceTime 120
+#PermitRootLogin without-password     //注释此行
+PermitRootLogin yes                             //加入此行
+StrictModes yes
+
+# 重启服务
+service ssh restart</code></pre><h2 id="用户账户说明"><a href="#用户账户说明" class="headerlink" title="用户账户说明"></a>用户账户说明</h2><ul>
+<li><strong>普通用户：</strong> 普通用户在系统上的任务是进行普通操作</li>
+<li><strong>超级管理员：</strong> 管理员在系统上的任务是对普通用户和整个系统进行管理。对系统具有绝对的控制权，能够对系统进行一切操作。用 root 表示，root 用户在系统中拥有最高权限，默认下 Ubuntu 用户的 root 用户是不能登录的。</li>
+<li><strong>安装时创建的系统用户：</strong> 此用户创建时被添加到 admin 组中，在 Ubuntu 中，admin 组中的用户默认是可以使用 <code>sudo</code> 命令来执行只有管理员才能执行的命令的。如果不使用 <code>sudo</code> 就是一个普通用户。</li>
+</ul>
+<h2 id="组账户说明"><a href="#组账户说明" class="headerlink" title="组账户说明"></a>组账户说明</h2><ul>
+<li><strong>私有组：</strong> 当创建一个用户时没有指定属于哪个组，Linux 就会建立一个与用户同名的私有组，此私有组只含有该用户。</li>
+<li><strong>标准组：</strong> 当创建一个用户时可以选定一个标准组，如果一个用户同时属于多个组时，登录后所属的组为主组，其他的为附加组。</li>
+</ul>
+<h2 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h2><h3 id="账户系统文件说明"><a href="#账户系统文件说明" class="headerlink" title="账户系统文件说明"></a>账户系统文件说明</h3><h4 id="etc-passwd"><a href="#etc-passwd" class="headerlink" title="/etc/passwd"></a>/etc/passwd</h4><p>每一行代表一个账号，众多账号是系统正常运行所必须的，例如 bin，nobody 每行定义一个用户账户，此文件对所有用户可读。每行账户包含如下信息：</p>
+<p><code>root:x:0:0:root:/root:/bin/bash</code></p>
+<ul>
+<li><strong>用户名：</strong> 就是账号，用来对应 UID，root UID 是 0。</li>
+<li><strong>口令：</strong> 密码，早期 UNIX 系统密码存在此字段，由于此文件所有用户都可以读取，密码容易泄露，后来这个字段数据就存放到 /etc/shadow 中，这里只能看到 X。</li>
+<li><strong>用户标示号（UID）：</strong> 系统内唯一，root 用户的 UID 为 0，普通用户从 1000 开始，1-999 是系统的标准账户，500-65536 是可登陆账号。</li>
+<li><strong>组标示号（GID）：</strong> 与 /etc/group 相关用来规定组名和 GID 相对应。</li>
+<li><strong>注释：</strong> 注释账号</li>
+<li><strong>宿主目录（主文件夹）：</strong> 用户登录系统后所进入的目录 root 在 /root/itcast</li>
+<li><strong>命令解释器（shell）：</strong> 指定该用户使用的 shell ，默认的是 /bin/bash</li>
+</ul>
+<h4 id="etc-shadow"><a href="#etc-shadow" class="headerlink" title="/etc/shadow"></a>/etc/shadow</h4><p>为了增加系统的安全性，用户口令通常用 shadow passwords 保护。只有 root 可读。每行包含如下信息：</p>
+<p><code>root:$6$Reu571.V$Ci/kd.OTzaSGU.TagZ5KjYx2MLzQv2IkZ24E1.yeTT3Pp4o/yniTjus/rRaJ92Z18MVy6suf1W5uxxurqssel.:17465:0:99999:7:::</code></p>
+<ul>
+<li><strong>账号名称：</strong> 需要和 /etc/passwd  一致。</li>
+<li><strong>密码：</strong> 经过加密，虽然加密，但不表示不会被破解，该文件默认权限如下：<ul>
+<li>-rw——-  1 root root    1560 Oct 26 17:20 passwd-</li>
+<li>只有root能都读写</li>
+</ul>
+</li>
+<li><strong>最近修改密码日期：</strong> 从1970-1-1起，到用户最后一次更改口令的天数</li>
+<li><strong>密码最小时间间隔：</strong> 从1970-1-1起，到用户可以更改口令的天数</li>
+<li><strong>密码最大时间间隔：</strong> 从1970-1-1起，必须更改的口令天数</li>
+<li><strong>密码到期警告时间：</strong> 在口令过期之前几天通知</li>
+<li><strong>密码到期后账号宽限时间</strong></li>
+<li><strong>密码到期禁用账户时间：</strong> 在用户口令过期后到禁用账户的天数</li>
+<li><strong>保留</strong></li>
+</ul>
+<h4 id="etc-group"><a href="#etc-group" class="headerlink" title="/etc/group"></a>/etc/group</h4><p>用户组的配置文件</p>
+<p><code>root:x:0:</code></p>
+<ul>
+<li><strong>用户组名称</strong></li>
+<li><strong>用户组密码：</strong> 给用户组管理员使用，通常不用</li>
+<li><strong>GID：</strong> 用户组的ID</li>
+<li><strong>此用户支持的账号名称：</strong> 一个账号可以加入多个用户组，例如想要 itcast 加入 root 这个用户组，将该账号填入该字段即可 <code>root:x:0:root</code>, icast 将用户进行分组是 Linux 对用户进行管理及控制访问权限的一种手段。一个中可以有多个用户，一个用户可以同时属于多个组。该文件对所有用户可读。</li>
+</ul>
+<h4 id="etc-gshadow"><a href="#etc-gshadow" class="headerlink" title="/etc/gshadow"></a>/etc/gshadow</h4><p>该文件用户定义用户组口令，组管理员等信息只有root用户可读。</p>
+<p><code>root:\*::</code></p>
+<ul>
+<li><strong>用户组名</strong></li>
+<li><strong>密码列</strong></li>
+<li><strong>用户组管理员的账号</strong></li>
+<li><strong>用户组所属账号</strong></li>
+</ul>
+<h3 id="账户管理常用命令"><a href="#账户管理常用命令" class="headerlink" title="账户管理常用命令"></a>账户管理常用命令</h3><h4 id="增加用户"><a href="#增加用户" class="headerlink" title="增加用户"></a>增加用户</h4><pre><code>useradd 用户名
+useradd -u (UID号)
+useradd -p (口令)
+useradd -g (分组)
+useradd -s (SHELL)
+useradd -d (用户目录)</code></pre><p>如：<code>useradd lusifer</code></p>
+<p>增加用户名为 lusifer 的账户</p>
+<h4 id="修改用户"><a href="#修改用户" class="headerlink" title="修改用户"></a>修改用户</h4><pre><code>usermod -u (新UID)
+usermod -d (用户目录)
+usermod -g (组名)
+usermod -s (SHELL)
+usermod -p (新口令)
+usermod -l (新登录名)
+usermod -L (锁定用户账号密码)
+usermod -U (解锁用户账号)</code></pre><p>如：<code>usermod  -u 1024  -g group2  -G root lusifer</code></p>
+<p>将 lusifer 用户 uid 修改为 1024，默认组改为系统中已经存在的 group2，并且加入到系统管理员组</p>
+<h4 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h4><pre><code>userdel 用户名 (删除用户账号)
+userdel -r 删除账号时同时删除目录</code></pre><p>如：<code>userdel -r lusifer</code></p>
+<p>删除用户名为 lusifer 的账户并同时删除 lusifer 的用户目录</p>
+<h4 id="组账户维护"><a href="#组账户维护" class="headerlink" title="组账户维护"></a>组账户维护</h4><pre><code>groupadd 组账户名 (创建新组)
+groupadd -g 指定组GID
+groupmod -g 更改组的GID
+groupmod -n 更改组账户名
+groupdel 组账户名 (删除指定组账户)</code></pre><h4 id="口令维护"><a href="#口令维护" class="headerlink" title="口令维护"></a>口令维护</h4><pre><code>passwd 用户账户名 (设置用户口令)
+passwd -l 用户账户名 (锁定用户账户)
+passwd -u 用户账户名 (解锁用户账户)
+passwd -d 用户账户名 (删除账户口令)
+gpasswd -a 用户账户名 组账户名 (将指定用户添加到指定组)
+gpasswd -d 用户账户名 组账户名 (将用户从指定组中删除)
+gpasswd -A 用户账户名 组账户名 (将用户指定为组的管理员)</code></pre><h4 id="用户和组状态"><a href="#用户和组状态" class="headerlink" title="用户和组状态"></a>用户和组状态</h4><pre><code>su 用户名(切换用户账户)
+id 用户名(显示用户的UID，GID)
+whoami (显示当前用户名称)
+groups (显示用户所属组)</code></pre>
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏一赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://jiabaoer.github.io" class="b-link-green">jiabaor-黄文贵个人博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/11/21/013.Linux-用户和组管理/" class="b-link-green">Linux 用户和组管理</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: null,
+        id: '2019-11-21T12-25-23',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+
+    
+        
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/11/21/014.Linux-文件权限管理/">
+                    <div class="card-image">
+                        
+                        <img src="/linux/微信截图_20171102134832.png" class="responsive-img" alt="Linux 文件权限管理">
+                        
+                        <span class="card-title">Linux 文件权限管理</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Linux 文件权限管理查看文件和目录的权限概述ls –al 使用 ls 不带参数只显示文件名称，通过 ls –al 可以显示文件或者目录的权限信息。
+ls -l 文件名 显示信息包括：文件类型 (d 目录，- 普通文件，l 链接文件)，文</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-21
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Linux/" class="post-category" target="_blank">
+                                    Linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Linux/" target="_blank">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/11/21/012.Linux-Vim 编辑器/">
+                    <div class="card-image">
+                        
+                        <img src="/linux/微信截图_20171102134832.png" class="responsive-img" alt="Linux Vim 编辑器">
+                        
+                        <span class="card-title">Linux Vim 编辑器</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Linux Vim 编辑器概述Vim 是从 vi 发展出来的一个文本编辑器。代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。
+简单的来说， vi 是老式的字处理器，不过功能已经很齐全了，但是还是有可以进步的地方。 V</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-21
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Linux/" class="post-category" target="_blank">
+                                    Linux
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Linux/" target="_blank">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+           欢迎访问：<a href="https://www.jiabaor.top" style="color:#21baff;">黄文贵个人博客===》www.jiabaor.top</a>
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/huangwengui" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub：https://github.com/huangwengui" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:445282611@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我：445282611@qq.com" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=445282611" class="tooltipped" data-tooltip="QQ联系我: 445282611" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+    <a href="https://www.jiabaor.top" class="tooltipped" data-tooltip="个人博客: https://www.jiabaor.top" data-position="top" data-delay="50">
+        <i class="fa fa-twitter"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input" autofocus="">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,858 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Spring Boot 整合 HikariCP, jiabaor-黄文贵个人博客">
+    <meta name="description" content="Spring Boot 整合 HikariCP什么是 HikariCPHiKariCP 是数据库连接池的一个后起之秀，号称性能最好，可以完美地 PK 掉其他连接池。是一个高性能的 JDBC 连接池，基于 BoneCP 做了不少的改进和优化。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Spring Boot 整合 HikariCP | jiabaor-黄文贵个人博客</title>
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/medias/icon.ico">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-desc">
+            
+				个人博客记录自己学习的点点滴滴
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/huangwengui" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>github首页
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/huangwengui" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub：https://github.com/huangwengui" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:445282611@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我：445282611@qq.com" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=445282611" class="tooltipped" data-tooltip="QQ联系我: 445282611" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+    <a href="https://www.jiabaor.top" class="tooltipped" data-tooltip="个人博客: https://www.jiabaor.top" data-position="top" data-delay="50">
+        <i class="fa fa-twitter"></i>
+    </a>
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/huangwengui" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="github首页" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/SpringBoot/Lusifer1527230830.png')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Spring Boot 整合 HikariCP
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="container content">
+
+    
+    <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/SpringBoot/" target="_blank">
+                                <span class="chip bg-color">SpringBoot</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/SpringBoot/" class="post-category" target="_blank">
+                                SpringBoot
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-11-23
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        1k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        4 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Spring-Boot-整合-HikariCP"><a href="#Spring-Boot-整合-HikariCP" class="headerlink" title="Spring Boot 整合 HikariCP"></a>Spring Boot 整合 HikariCP</h1><h2 id="什么是-HikariCP"><a href="#什么是-HikariCP" class="headerlink" title="什么是 HikariCP"></a>什么是 HikariCP</h2><p>HiKariCP 是数据库连接池的一个后起之秀，号称性能最好，可以完美地 PK 掉其他连接池。是一个高性能的 JDBC 连接池，基于 BoneCP 做了不少的改进和优化。超快，快到连 Spring Boot 2 都宣布支持了。</p>
+<p><a href="https://github.com/brettwooldridge/HikariCP" target="_blank" rel="noopener">官方 GitHub 地址</a></p>
+<h2 id="什么是-BoneCP"><a href="#什么是-BoneCP" class="headerlink" title="什么是 BoneCP"></a>什么是 BoneCP</h2><p>传说中 BoneCP 在快速这个特点上做到了极致，官方数据是 C3P0 等的 25 倍左右，以下为性能测试报告。</p>
+<h3 id="单线程"><a href="#单线程" class="headerlink" title="单线程"></a>单线程</h3><ul>
+<li>1,000,000 获取连接/释放连接请求</li>
+<li>获取/释放连接之间没有延迟</li>
+<li>连接池范围：20-50</li>
+<li>增量：5</li>
+<li>线程：1</li>
+<li>分区：1</li>
+</ul>
+<p><img src="/SpringBoot/images-benchmarks-bonecp-singlethread.jpg" alt></p>
+<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><ul>
+<li>500 个线程分别获取释放 100 个连接</li>
+<li>在获取连接和释放连接之间引入了 10ms 的延迟 <code>Thread.sleep()</code>，模拟连接完成工作</li>
+<li>连接池范围：50-200</li>
+<li>增量：5</li>
+<li>线程：5</li>
+</ul>
+<p><img src="/SpringBoot/images-benchmarks-bonecp-multithread-10ms-delay.jpg" alt></p>
+<h3 id="Prepared-Statement"><a href="#Prepared-Statement" class="headerlink" title="Prepared Statement"></a>Prepared Statement</h3><ul>
+<li>500 个线程分别获取释放 100 个连接</li>
+<li>无延迟</li>
+<li>连接池范围：50-200</li>
+<li>增量：5</li>
+<li>线程：5</li>
+</ul>
+<p><img src="/SpringBoot/Lusifer_20190618071006.png" alt></p>
+<h2 id="为什么需要-HikariCP"><a href="#为什么需要-HikariCP" class="headerlink" title="为什么需要 HikariCP"></a>为什么需要 HikariCP</h2><p>BoneCP 作者放弃维护，并在 Github 项目主页推荐大家使用 HikariCP，Hikari（ひかり[shi ga li]） 来自日文，是 <strong>光</strong> 的意思。这个产品的口号是 <strong>快速、简单、可靠</strong></p>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><ul>
+<li><strong>字节码精简 ：</strong> 优化代码，直到编译后的字节码最少，这样，CPU 缓存可以加载更多的程序代码</li>
+<li><strong>优化代理和拦截器 ：</strong> 减少代码，例如 HikariCP 的 Statement proxy 只有 100 行代码，只有 BoneCP 的十分之一</li>
+<li><strong>自定义数组类型（FastStatementList）代替 ArrayList ：</strong> 避免每次 <code>get()</code> 调用都要进行 range check，避免调用 <code>remove()</code> 时的从头到尾的扫描</li>
+<li><strong>自定义集合类型（ConcurrentBag）：</strong> 提高并发读写的效率</li>
+<li><strong>其他针对 BoneCP 缺陷的优化：</strong> 比如对于耗时超过一个 CPU 时间片的方法调用的研究（但没说具体怎么优化）</li>
+</ul>
+<h3 id="代码量"><a href="#代码量" class="headerlink" title="代码量"></a>代码量</h3><p>几个连接池的代码量对比（代码量越少，一般意味着执行效率越高、发生 BUG 的可能性越低）</p>
+<table>
+<thead>
+<tr>
+<th>Pool</th>
+<th>Files</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Vibur</td>
+<td>34</td>
+<td>1927</td>
+</tr>
+<tr>
+<td>HikariCP</td>
+<td>21</td>
+<td>2228</td>
+</tr>
+<tr>
+<td>Tomcat</td>
+<td>31</td>
+<td>6345</td>
+</tr>
+<tr>
+<td>BoneCP</td>
+<td>49</td>
+<td>7293</td>
+</tr>
+<tr>
+<td>C3P0</td>
+<td>120</td>
+<td>15550</td>
+</tr>
+</tbody></table>
+<h3 id="速度"><a href="#速度" class="headerlink" title="速度"></a>速度</h3><p>别人发推文测试 Hikari 速度</p>
+<p><img src="/SpringBoot/B1IiUUxCAAEgIHY.jpg" alt></p>
+<h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p><img src="/SpringBoot/5658815-997cb1b8151acc9b.webp" alt></p>
+<h3 id="可靠性"><a href="#可靠性" class="headerlink" title="可靠性"></a>可靠性</h3><p>另外，关于可靠性方面，也是有实验和数据支持的。对于数据库连接中断的情况，通过测试 <code>getConnection()</code>，各种 CP 的不相同处理方法如下（所有 CP 都配置了跟 <code>connectionTimeout</code> 类似的参数为 5 秒钟）</p>
+<ul>
+<li><strong>HikariCP(A)：</strong> 等待 5 秒钟后，如果连接还是没有恢复，则抛出一个 <code>SQLExceptions</code> 异常；后续的 <code>getConnection()</code> 也是一样处理</li>
+<li><strong>C3P0(C-)：</strong> 完全没有反应，没有提示，也不会在 <code>CheckoutTimeout</code> 配置的时长超时后有任何通知给调用者；然后等待 2 分钟后终于醒来了，返回一个 error</li>
+<li><strong>Tomcat(F)：</strong> 返回一个 connection，然后调用者如果利用这个无效的 connection 执行 SQL 语句 结果可想而知；大约 55 秒之后终于醒来了，这时候的 <code>getConnection()</code> 终于可以返回一个 error，但没有等待参数配置的 5 秒钟，而是立即返回 error</li>
+<li><strong>BoneCP(C)：</strong> 跟 Tomcat 的处理方法一样；也是大约 55 秒之后才醒来，有了正常的反应，并且终于会等待 5 秒钟之后返回 error 了</li>
+</ul>
+<h2 id="整合-HikariCP"><a href="#整合-HikariCP" class="headerlink" title="整合 HikariCP"></a>整合 HikariCP</h2><h3 id="POM"><a href="#POM" class="headerlink" title="POM"></a>POM</h3><pre class="line-numbers language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- 主要增加 HikariCP 依赖 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.zaxxer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>HikariCP<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>${hikaricp.version}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-jdbc<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>exclusions</span><span class="token punctuation">></span></span>
+        <span class="token comment" spellcheck="true">&lt;!-- 排除 tomcat-jdbc 以使用 HikariCP --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>exclusion</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.tomcat<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>tomcat-jdbc<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>exclusion</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>exclusions</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!-- MySQL 驱动 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>mysql<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>mysql-connector-java<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>${mysql.version}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h3><pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token key atrule">datasource</span><span class="token punctuation">:</span>
+    <span class="token key atrule">type</span><span class="token punctuation">:</span> com.zaxxer.hikari.HikariDataSource
+    <span class="token key atrule">driver-class-name</span><span class="token punctuation">:</span> com.mysql.cj.jdbc.Driver
+    <span class="token key atrule">url</span><span class="token punctuation">:</span> jdbc<span class="token punctuation">:</span>mysql<span class="token punctuation">:</span>//192.168.141.130<span class="token punctuation">:</span>3306/myshop<span class="token punctuation">?</span>useUnicode=true<span class="token important">&amp;characterEncoding</span>=utf<span class="token punctuation">-</span>8<span class="token important">&amp;useSSL</span>=false
+    <span class="token key atrule">username</span><span class="token punctuation">:</span> root
+    <span class="token key atrule">password</span><span class="token punctuation">:</span> <span class="token number">123456</span>
+    <span class="token key atrule">hikari</span><span class="token punctuation">:</span>
+      <span class="token key atrule">minimum-idle</span><span class="token punctuation">:</span> <span class="token number">5</span>
+      <span class="token key atrule">idle-timeout</span><span class="token punctuation">:</span> <span class="token number">600000</span>
+      <span class="token key atrule">maximum-pool-size</span><span class="token punctuation">:</span> <span class="token number">10</span>
+      <span class="token key atrule">auto-commit</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+      <span class="token key atrule">pool-name</span><span class="token punctuation">:</span> MyHikariCP
+      <span class="token key atrule">max-lifetime</span><span class="token punctuation">:</span> <span class="token number">1800000</span>
+      <span class="token key atrule">connection-timeout</span><span class="token punctuation">:</span> <span class="token number">30000</span>
+      <span class="token key atrule">connection-test-query</span><span class="token punctuation">:</span> SELECT 1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p><strong>注意：</strong> 具体使用方法在 <strong>测试 MyBatis 操作数据库</strong> 时进行介绍，此处仅为准备环节</p>
+</blockquote>
+
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏一赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://jiabaoer.github.io" class="b-link-green">jiabaor-黄文贵个人博客</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/11/23/041.Spring Boot-MyBatis-HikariCP/" class="b-link-green">Spring Boot 整合 HikariCP</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: '',
+        owner: '',
+        admin: null,
+        id: '2019-11-23T14-30-23',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+
+    
+        
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/11/23/042.Spring Boot-MyBatis-TkMyBatis/">
+                    <div class="card-image">
+                        
+                        <img src="/SpringBoot/Lusifer1527230830.png" class="responsive-img" alt="Spring Boot 整合 TkMyBatis">
+                        
+                        <span class="card-title">Spring Boot 整合 TkMyBatis</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Spring Boot 整合 TkMyBatis什么是 TkMyBatistk.mybatis 是在 MyBatis 框架的基础上提供了很多工具，让开发更加高效
+POM在 pom.xml 文件中引入 mapper-spring-boot-s</div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/SpringBoot/" class="post-category" target="_blank">
+                                    SpringBoot
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/SpringBoot/" target="_blank">
+                        <span class="chip bg-color">SpringBoot</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/11/23/039.Spring Boot-Thymeleaf-简介/">
+                    <div class="card-image">
+                        
+                        <img src="/SpringBoot/Lusifer1527230830.png" class="responsive-img" alt="Thymeleaf 简介">
+                        
+                        <span class="card-title">Thymeleaf 简介</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Thymeleaf 简介什么是 ThymeleafThymeleaf 是一个跟 Velocity、FreeMarker 类似的模板引擎，它可以完全替代 JSP 。相较与其他的模板引擎，它有如下三个极吸引人的特点
+
+Thymeleaf 在有网</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/SpringBoot-Thymeleaf/" class="post-category" target="_blank">
+                                    SpringBoot-Thymeleaf
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/SpringBoot-Thymeleaf/" target="_blank">
+                        <span class="chip bg-color">SpringBoot-Thymeleaf</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+           欢迎访问：<a href="https://www.jiabaor.top" style="color:#21baff;">黄文贵个人博客===》www.jiabaor.top</a>
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/huangwengui" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub：https://github.com/huangwengui" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:445282611@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我：445282611@qq.com" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=445282611" class="tooltipped" data-tooltip="QQ联系我: 445282611" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+    <a href="https://www.jiabaor.top" class="tooltipped" data-tooltip="个人博客: https://www.jiabaor.top" data-position="top" data-delay="50">
+        <i class="fa fa-twitter"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input" autofocus="">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
